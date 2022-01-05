@@ -1,0 +1,44 @@
+body{
+  background-color: #282c34;
+}
+
+
+
+
+.UserPage {
+    background-color: #282c34;
+  }
+  
+.UserPagePage-header {
+    display: flex;
+    flex-direction: column;
+    font-family: verdana;
+
+
+  }
+
+.UserWelcome{
+    text-align:center;
+    color: red;
+    font-size:30px;
+
+}
+
+.UserColonneGauche{
+
+  color: red;
+  float:left;
+  width: 50%;
+
+
+}
+
+.UserColonneDroite{
+
+  color: red;
+  float:right;
+  width: 50%;
+
+
+
+}

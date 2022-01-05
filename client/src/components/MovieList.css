@@ -1,0 +1,25 @@
+body{
+  background-color: #282c34;
+}
+
+.MovieList {
+    background-color: #282c34;
+  }
+  
+.MovieList-header {
+    display: flex;
+    flex-direction: column;
+    font-family: verdana;
+  }
+
+.MovieListTitle {
+    text-align: center;
+    color:red;
+    font-size:30px
+}
+
+.MovieListList {
+    color:white;
+    font-size:20px;
+    line-height: 2.5;
+}

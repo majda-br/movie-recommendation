@@ -1,0 +1,179 @@
+service: cs-group-${self:custom.stageVars.groupNumber}-${self:custom.stageVars.myFirstname}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-west-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource:
+        - 'Fn::GetAtt': [Table, Arn]
+  environment:
+    tableName: ${self:service.name}-dynamodb
+
+functions:
+  hello:
+    handler: functions/hello.handle
+    events:
+      - http:
+          path: hello
+          method: get
+
+  get:
+    handler: functions/get.handle
+    events:
+      - http:
+          method: get
+          path: items/{id}
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+
+  create:
+    handler: functions/create.handle
+    events:
+      - http:
+          method: post
+          path: items
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+
+  create_movie:
+    handler: functions/create_movie.handle
+    events:
+      - http:
+          method: post
+          path: movie_create
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  create_user:
+    handler: functions/create_user.handle
+    events:
+      - http:
+          method: post
+          path: user_create
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  create_rate:
+    handler: functions/create_rate.handle
+    events:
+      - http:
+          method: post
+          path: movie_rate
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+
+  list:
+    handler: functions/list.handle
+    events:
+      - http:
+          method: get
+          path: items
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  list_genre:
+    handler: functions/list_genre.handle
+    events:
+      - http:
+          method: get
+          path: genre/list
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  list_movie:
+    handler: functions/list_movie.handle
+    events:
+      - http:
+          method: get
+          path: movie/list
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  list_movie_genre:
+    handler: functions/list_movie_genre.handle
+    events:
+      - http:
+          method: get
+          path: movie/list/genre/{id}
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  list_movie_grade:
+    handler: functions/list_movie_grade.handle
+    events:
+      - http:
+          method: get
+          path: list_movie_grade/{id}
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  list_movie_no_grade:
+    handler: functions/list_movie_no_grade.handle
+    events:
+      - http:
+          method: get
+          path: list_movie_no_grade/{id}
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  list_user:
+    handler: functions/list_user.handle
+    events:
+      - http:
+          method: get
+          path: user/list
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  get_movie:
+    handler: functions/get_movie.handle
+    events:
+      - http:
+          method: get
+          path: movie/{id}
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  get_info_user:
+    handler: functions/get_info_user.handle
+    events:
+      - http:
+          method: get
+          path: user/{id}
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  avg_grade_movie:
+    handler: functions/avg_grade_movie.handle
+    events:
+      - http:
+          method: get
+          path: movie_avg/{id}
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+  recommandation_genre:
+    handler: functions/recommandation_genre.handle
+    events:
+      - http:
+          method: get
+          path: movie_genre_recommandation/{id}
+          cors:
+            origin: http://localhost:3000
+            allowCredentials: true
+
+custom:
+  stageVars: ${file(./stage.${self:provider.stage}.yml)}
+
+resources:
+  - ${file(resources/dynamodb.yml)}

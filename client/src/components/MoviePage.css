@@ -1,0 +1,38 @@
+body{
+  background-color: #282c34;
+}
+
+.MoviePage {
+    background-color: #282c34;
+  }
+  
+.MoviePage-header {
+    display: flex;
+    flex-direction: column;
+    font-family: verdana;
+    align-items: center;
+  }
+
+.MovieTitle {
+  color: red;
+  text-align: center;
+  font-size:50px;
+}
+
+.MovieImage {
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.MovieScore {
+color: yellow;
+font-size: 20px;
+}
+
+.MovieCategory {
+  color: white;
+  font-size: 20px;
+
+}
